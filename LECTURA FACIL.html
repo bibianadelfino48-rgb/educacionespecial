@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club de Lectura Fácil - Historias para Todos</title>
+  <style>
+    /* ==========================================
+       VARIABLES DE COLOR Y ACCESIBILIDAD
+       ========================================== */
+    :root {
+      --bg-principal: #f3f0ff;      /* Lila suave y descansado */
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      
+      --color-primario: #6366f1;   /* Índigo brillante */
+      --color-secundario: #ec4899; /* Rosa alegre */
+      --color-amarillo: #f59e0b;   /* Naranja/Amarillo cálido */
+      --color-verde: #10b981;      /* Verde menta */
+      
+      --focus-outline: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Verdana', 'Segoe UI', Arial, sans-serif; /* Fuentes de alta legibilidad */
+      background-color: var(--bg-principal);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ENCABEZADO PRINCIPAL */
+    header {
+      background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 950px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 950px;
+    }
+
+    /* FILTRO / BARRA DE SELECCIÓN DE CATEGORÍAS */
+    .contenedor-filtros {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .btn-filtro {
+      background-color: var(--card-bg);
+      border: 3px solid var(--color-primario);
+      color: var(--color-primario);
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-filtro:hover,
+    .btn-filtro:focus {
+      background-color: var(--color-primario);
+      color: white;
+      transform: translateY(-3px);
+      outline: 3px solid var(--focus-outline);
+    }
+
+    /* GRID DE CUENTOS Y LECTURAS */
+    .grid-lecturas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* TARJETA DE LECTURA (FORMATO LECTURA FÁCIL) */
+    .tarjeta-cuento {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      border: 4px solid #e0e7ff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tarjeta-cuento:hover,
+    .tarjeta-cuento:focus-within {
+      transform: translateY(-8px);
+      border-color: var(--color-secundario);
+    }
+
+    /* CABECERA VISUAL CON PICTOGRAMA / EMOJI */
+    .imagen-portada {
+      background-color: #fef3c7;
+      font-size: 5rem;
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 3px dashed var(--color-amarillo);
+    }
+
+    .cuerpo-tarjeta {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .etiqueta-nivel {
+      background-color: #d1fae5;
+      color: #065f46;
+      font-weight: bold;
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .cuerpo-tarjeta h2 {
+      font-size: 1.4rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    /* TEXTO EN LECTURA FÁCIL (ORACIONES CORTAS Y ESPACIADAS) */
+    .texto-resumen {
+      font-size: 1.05rem;
+      color: #374151;
+      margin-bottom: 20px;
+    }
+
+    .texto-resumen p {
+      margin-bottom: 8px;
+    }
+
+    /* BOTÓN DE LEER */
+    .btn-leer {
+      background-color: var(--color-verde);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: auto;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn-leer:hover,
+    .btn-leer:focus {
+      background-color: #059669;
+      outline: 3px solid var(--focus-outline);
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <h1>📖 Portal de Lectura Fácil 🌟</h1>
+    <p>Historias sencillas, claras y divertidas para leer hoy</p>
+  </header>
+
+  <main>
+    <!-- BARRA DE SELECCIÓN / CATEGORÍAS -->
+    <nav class="contenedor-filtros" aria-label="Categorías de lectura">
+      <button class="btn-filtro">🐶 Animales</button>
+      <button class="btn-filtro">🚀 Aventuras</button>
+      <button class="btn-filtro">🌱 Naturaleza</button>
+    </nav>
+
+    <!-- CUADRÍCULA DE HISTORIAS -->
+    <div class="grid-lecturas">
+
+      <!-- Cuento 1 -->
+      <article class="tarjeta-cuento">
+        <div class="imagen-portada" role="img" aria-label="Dibujo de un perro alegre">🐶</div>
+        <div class="cuerpo-tarjeta">
+          <span class="etiqueta-nivel">Lectura Fácil • Nivel 1</span>
+          <h2>El perro Tobías</h2>
+          <div class="texto-resumen">
+            <p>• Tobías es un perro de color café.</p>
+            <p>• A Tobías le gusta correr en el parque.</p>
+            <p>• Hoy encontró una pelota roja muy grande.</p>
+          </div>
+          <button class="btn-leer" onclick="alert('¡Abriendo el cuento de Tobías!')">
+            📖 Leer Cuento
+          </button>
+        </div>
+      </article>
+
+      <!-- Cuento 2 -->
+      <article class="tarjeta-cuento">
+        <div class="imagen-portada" style="background-color: #e0f2fe; border-color: #38bdf8;" role="img" aria-label="Dibujo de un cohete espacial">🚀</div>
+        <div class="cuerpo-tarjeta">
+          <span class="etiqueta-nivel" style="background-color: #e0f2fe; color: #0369a1;">Lectura Fácil • Nivel 1</span>
+          <h2>Viaje a la Luna</h2>
+          <div class="texto-resumen">
+            <p>• Mateo es un astronauta valiente.</p>
+            <p>• Viaja en un cohete muy rápido.</p>
+            <p>• En la Luna mira las estrellas brillantes.</p>
+          </div>
+          <button class="btn-leer" style="background-color: var(--color-primario);" onclick="alert('¡Abriendo Viaje a la Luna!')">
+            📖 Leer Cuento
+          </button>
+        </div>
+      </article>
+
+      <!-- Cuento 3 -->
+      <article class="tarjeta-cuento">
+        <div class="imagen-portada" style="background-color: #fce7f3; border-color: #f472b6;" role="img" aria-label="Dibujo de una planta creciendo">🌱</div>
+        <div class="cuerpo-tarjeta">
+          <span class="etiqueta-nivel" style="background-color: #fce7f3; color: #be185d;">Lectura Fácil • Nivel 2</span>
+          <h2>La Pequeña Semilla</h2>
+          <div class="texto-resumen">
+            <p>• Una semilla duerme en la tierra.</p>
+            <p>• El sol le da calor y el agua la alimenta.</p>
+            <p>• Pronto se convierte en una flor hermosa.</p>
+          </div>
+          <button class="btn-leer" style="background-color: var(--color-secundario);" onclick="alert('¡Abriendo La Pequeña Semilla!')">
+            📖 Leer Cuento
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Adaptado según las Pautas Internacionales de Lectura Fácil (ILSMH / Inclusion Europe).</p>
+  </footer>
+
+</body>
+</html>

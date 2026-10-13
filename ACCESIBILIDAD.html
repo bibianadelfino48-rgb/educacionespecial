@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Ajustes de Accesibilidad</title>
+  <style>
+    /* ==========================================
+       VARIABLES CSS DINÁMICAS (SISTEMA DE TEMAS)
+       ========================================== */
+    :root {
+      --bg-principal: #f0f4f8;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --primary: #6366f1;
+      --border-color: #cbd5e1;
+      --font-family: 'Verdana', sans-serif;
+      --font-scale: 1rem; /* Base de tamaño de texto */
+      --focus-ring: #000000;
+    }
+
+    /* TEMA 1: ALTO CONTRASTE (AMARILLO / NEGRO) */
+    body.tema-alto-contraste {
+      --bg-principal: #000000;
+      --card-bg: #121212;
+      --text-main: #ffff00; /* Amarillo de alta visibilidad */
+      --primary: #ffff00;
+      --border-color: #ffff00;
+      --focus-ring: #ffffff;
+    }
+
+    /* TEMA 2: MODO CALMA (BAJO ESTÍMULO / LECTURA NOCTURNA) */
+    body.tema-calma {
+      --bg-principal: #1e293b;
+      --card-bg: #334155;
+      --text-main: #f1f5f9;
+      --primary: #38bdf8;
+      --border-color: #475569;
+      --focus-ring: #38bdf8;
+    }
+
+    /* APLICACIÓN GLOBAL DE VARIABLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-scale);
+      background-color: var(--bg-principal);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* PANEL SUPERIOR DE AJUSTES (HERRAMIENTA DOCENTE) */
+    .panel-accesibilidad {
+      background-color: var(--card-bg);
+      border: 4px solid var(--primary);
+      border-radius: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 850px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .panel-accesibilidad h2 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .grupo-controles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .control-item label {
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    /* BOTONES DE AJUSTE */
+    .btn-ajuste {
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      border: 2px solid var(--primary);
+      padding: 8px 14px;
+      font-size: 0.9em;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-ajuste:hover,
+    .btn-ajuste:focus {
+      background-color: var(--primary);
+      color: white;
+      outline: 3px solid var(--focus-ring);
+    }
+
+    /* TARJETA DE CONTENIDO DE PRUEBA */
+    main {
+      width: 100%;
+      max-width: 850px;
+    }
+
+    .articulo-ejemplo {
+      background-color: var(--card-bg);
+      border: 3px solid var(--border-color);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    }
+
+    .articulo-ejemplo h1 {
+      font-size: 1.8em;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .articulo-ejemplo p {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+
+    .destacado-visual {
+      background-color: rgba(99, 102, 241, 0.15);
+      border-left: 5px solid var(--primary);
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PANEL FLOTANTE / DE CONTROL DE ACCESIBILIDAD -->
+  <aside class="panel-accesibilidad" aria-label="Ajustes de accesibilidad de la página">
+    <h2>⚙️ Panel de Preferencias de Accesibilidad</h2>
+    
+    <div class="grupo-controles">
+      
+      <!-- Control 1: Tamaño de Texto -->
+      <div class="control-item">
+        <label>Tamaño de Letra:</label>
+        <div>
+          <button class="btn-ajuste" onclick="cambiarTamano(0.9)">Normal</button>
+          <button class="btn-ajuste" onclick="cambiarTamano(1.15)">Grande 🔍</button>
+          <button class="btn-ajuste" onclick="cambiarTamano(1.4)">Muy Grande 🔎</button>
+        </div>
+      </div>
+
+      <!-- Control 2: Esquema de Color / Contraste -->
+      <div class="control-item">
+        <label>Modo de Color:</label>
+        <div>
+          <button class="btn-ajuste" onclick="cambiarTema('normal')">☀️ Estándar</button>
+          <button class="btn-ajuste" onclick="cambiarTema('alto-contraste')">🟨 Alto Contraste</button>
+          <button class="btn-ajuste" onclick="cambiarTema('calma')">🌙 Bajo Estímulo</button>
+        </div>
+      </div>
+
+      <!-- Control 3: Tipografía para Dislexia / Legibilidad -->
+      <div class="control-item">
+        <label>Tipografía:</label>
+        <div>
+          <button class="btn-ajuste" onclick="cambiarFuente('Verdana, sans-serif')">Verdana</button>
+          <button class="btn-ajuste" onclick="cambiarFuente('Comic Sans MS, Arial, sans-serif')">Trazo Claro (Dislexia)</button>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- CONTENIDO ADAPTABLE DE MUESTRA -->
+  <main>
+    <article class="articulo-ejemplo">
+      <h1>🌱 El Ciclo de las Plantas (Lectura Adaptada)</h1>
+      <p>• Las plantas necesitan agua, luz del sol y tierra para crecer sanas.</p>
+      <p>• Primero colocamos una pequeña semilla en la maceta.</p>
+      <p>• Con el paso de los días, le crecen raíces y hojas verdes brillantes.</p>
+      
+      <div class="destacado-visual">
+        💡 Criterio de Accesibilidad: Observa cómo el contenido se reacomoda automáticamente sin deformar la pantalla al cambiar el tamaño de la letra o el contraste.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Simulador pedagógico de diseño accesible adaptado a las pautas WCAG 2.1.</p>
+  </footer>
+
+  <!-- LÓGICA DE INTERACCIÓN (JAVASCRIPT) -->
+  <script>
+    // 1. Cambiar tamaño de la fuente usando variables CSS
+    function cambiarTamano(escala) {
+      document.documentElement.style.setProperty('--font-scale', escala + 'rem');
+    }
+
+    // 2. Cambiar esquemas de contraste alternando clases en el <body>
+    function cambiarTema(tema) {
+      document.body.classList.remove('tema-alto-contraste', 'tema-calma');
+      
+      if (tema === 'alto-contraste') {
+        document.body.classList.add('tema-alto-contraste');
+      } else if (tema === 'calma') {
+        document.body.classList.add('tema-calma');
+      }
+    }
+
+    // 3. Cambiar la tipografía de forma global
+    function cambiarFuente(fuente) {
+      document.documentElement.style.setProperty('--font-family', fuente);
+    }
+  </script>
+
+</body>
+</html>

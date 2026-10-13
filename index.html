@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Recursos Web Inclusivos | TIC y Educación Especial</title>
+  <style>
+    /* ==========================================
+       VARIABLES DE COLOR Y DISEÑO MOTIVADOR
+       ========================================== */
+    :root {
+      --bg-main: #f0fdf4;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      
+      --primary: #6366f1;     /* Índigo vibrante */
+      --secondary: #ec4899;   /* Rosa motivador */
+      --accent: #f59e0b;      /* Naranja brillante */
+      
+      --focus-ring: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Verdana', 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ENCABEZADO Y BIENVENIDA */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 35px 25px;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 35px;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .subtitulo-seccion {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #334155;
+    }
+
+    /* GRID DE TARJETAS DE 3x3 */
+    .grid-portal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 25px;
+    }
+
+    /* ESTILO DE TARJETA */
+    .tarjeta-recurso {
+      background-color: var(--card-bg);
+      border-radius: 24px;
+      border: 4px solid #cbd5e1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .tarjeta-recurso:hover,
+    .tarjeta-recurso:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    /* BORDES Y COLORES PERSONALIZADOS PARA CADA UNA DE LAS 9 TARJETAS */
+    .tarjeta-recurso:nth-child(1) { border-color: #3b82f6; } /* Azul */
+    .tarjeta-recurso:nth-child(2) { border-color: #f59e0b; } /* Naranja */
+    .tarjeta-recurso:nth-child(3) { border-color: #ec4899; } /* Rosa */
+    .tarjeta-recurso:nth-child(4) { border-color: #10b981; } /* Verde */
+    .tarjeta-recurso:nth-child(5) { border-color: #8b5cf6; } /* Violeta */
+    .tarjeta-recurso:nth-child(6) { border-color: #06b6d4; } /* Cían */
+    .tarjeta-recurso:nth-child(7) { border-color: #eab308; } /* Amarillo */
+    .tarjeta-recurso:nth-child(8) { border-color: #f43f5e; } /* Rojo Rosa */
+    .tarjeta-recurso:nth-child(9) { border-color: #0284c7; } /* Celeste */
+
+    .icono-cabecera {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .titulo-recurso {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      text-align: center;
+    }
+
+    .descripcion-recurso {
+      font-size: 1rem;
+      color: #475569;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    /* BOTÓN ACCESO AL RECURSO */
+    .btn-abrir {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 14px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      display: block;
+    }
+
+    .btn-abrir:hover,
+    .btn-abrir:focus {
+      background-color: #4f46e5;
+      outline: 3px solid var(--focus-ring);
+      transform: scale(1.02);
+    }
+
+    footer {
+      margin-top: 45px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO MOTIVADOR -->
+  <header>
+    <h1>🌟 Portal de Recursos Web Inclusivos 🌟</h1>
+    <p>Educación y Nuevas Tecnologías • Desarrollo de Aplicaciones Accesibles (DUA)</p>
+  </header>
+
+  <main>
+    <h2 class="subtitulo-seccion">🛠️ Herramientas e Interfaces Interactivas (9 Recursos)</h2>
+
+    <div class="grid-portal">
+
+      <!-- Recurso 1 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">💬</div>
+        <h3 class="titulo-recurso">1. Tablero CAA</h3>
+        <p class="descripcion-recurso">Tablero de Comunicación Aumentativa y Alternativa con código cromático estándar y visor de oraciones dinámico.</p>
+        <a href="TABLERO DE COMUNICACIÓN.html" class="btn-abrir">🚀 Abrir Tablero</a>
+      </article>
+
+      <!-- Recurso 2 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🍱</div>
+        <h3 class="titulo-recurso">2. Menú Causa-Efecto</h3>
+        <p class="descripcion-recurso">Menú interactivo del comedor escolar enfocado en la relación causa y efecto de las elecciones alimentarias.</p>
+        <a href="MENÚ SEMANAL.html" class="btn-abrir">🚀 Abrir Menú</a>
+      </article>
+
+      <!-- Recurso 3 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🔊</div>
+        <h3 class="titulo-recurso">3. Cuaderno Sensorial</h3>
+        <p class="descripcion-recurso">Cuaderno de exploración táctil-visual con texturas en CSS y respuesta auditiva mediante síntesis de voz.</p>
+        <a href="CUADERNO SENSORIAL.html" class="btn-abrir">🚀 Abrir Cuaderno</a>
+      </article>
+
+      <!-- Recurso 4 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🚦</div>
+        <h3 class="titulo-recurso">4. Semáforo Emocional</h3>
+        <p class="descripcion-recurso">Herramienta de autorregulación con apoyos visuales y un botón de "Modo Calma" para bajo estímulo sensorial.</p>
+        <a href="SEMÁFORO SENSORIAL.html" class="btn-abrir">🚀 Abrir Semáforo</a>
+      </article>
+
+      <!-- Recurso 5 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🧼</div>
+        <h3 class="titulo-recurso">5. Secuenciador de Rutinas</h3>
+        <p class="descripcion-recurso">Línea de tiempo paso a paso interactiva para secuencias sociales y de higiene con verificación de logros.</p>
+        <a href="PASOS LAVAR MANOS.html" class="btn-abrir">🚀 Abrir Rutinas</a>
+      </article>
+
+      <!-- Recurso 6 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🔍</div>
+        <h3 class="titulo-recurso">6. Simulador Accesibilidad</h3>
+        <p class="descripcion-recurso">Herramienta para experimentar barreras de aprendizaje y aplicar ajustes razonables de diseño DUA/WCAG.</p>
+        <a href="ACCESIBILIDAD.html" class="btn-abrir">🚀 Abrir Simulador</a>
+      </article>
+
+      <!-- Recurso 7 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">📖</div>
+        <h3 class="titulo-recurso">7. Portal Lectura Fácil</h3>
+        <p class="descripcion-recurso">Cuentos y textos adaptados bajo pautas internacionales de Lectura Fácil para facilitar la comprensión lectora.</p>
+        <a href="FACIL.html" class="btn-abrir">🚀 Abrir Cuentos</a>
+      </article>
+
+      <!-- Recurso 8 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">🖍️</div>
+        <h3 class="titulo-recurso">8. Pizarra Digital Inclusiva</h3>
+        <p class="descripcion-recurso">Pizarra interactiva con fuentes de alta legibilidad, cambio de contraste dinámico y voz de apoyo en tiempo real.</p>
+        <a href="PIZARRA.html" class="btn-abrir">🚀 Abrir Pizarra</a>
+      </article>
+
+      <!-- Recurso 9 -->
+      <article class="tarjeta-recurso">
+        <div class="icono-cabecera">⏳</div>
+        <h3 class="titulo-recurso">9. Temporizador Visual</h3>
+        <p class="descripcion-recurso">Reloj de conteo regresivo gráfico y progresivo para estructurar los tiempos de trabajo y la anticipación de tareas.</p>
+        <a href="TEMPORIZADOR VISUAL.html" class="btn-abrir">🚀 Abrir Temporizador</a>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Cátedra de Educación y Nuevas Tecnologías • Profesorado de Educación Especial</p>
+  </footer>
+
+</body>
+</html>

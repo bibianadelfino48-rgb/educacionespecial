@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno Sensorial de Exploración</title>
+  <style>
+    /* ==========================================
+       VARIABLES DE COLOR Y TEXTURAS SENSORIALES
+       ========================================== */
+    :root {
+      --bg-principal: #0f172a;       /* Fondo oscuro para resaltar contraste */
+      --text-light: #ffffff;
+      
+      --color-animales: #ff007f;    /* Rosa neón */
+      --color-naturaleza: #00f0ff;  /* Cían neón */
+      --color-emociones: #ffe600;   /* Amarillo brillante */
+      --color-musica: #a855f7;      /* Violeta vibrante */
+      
+      --focus-ring: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Verdana', 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-principal);
+      color: var(--text-light);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ENCABEZADO MOTIVADOR */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, var(--color-animales), var(--color-naturaleza), var(--color-emociones));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    p.subtitulo {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      font-weight: bold;
+    }
+
+    /* GRID SENSORIAL DE TARJETAS */
+    main {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .grid-sensorial {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+    }
+
+    /* ESTILO BASE DE LAS TARJETAS SENSORIALES */
+    .tarjeta-sensorial {
+      border: 5px solid white;
+      border-radius: 28px;
+      padding: 25px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* ANIMACIÓN DE PULSO AL ENFOCAR O PASAR EL MOUSE */
+    .tarjeta-sensorial:hover,
+    .tarjeta-sensorial:focus {
+      transform: scale(1.08);
+      outline: 5px solid var(--focus-ring);
+      outline-offset: 5px;
+      animation: latido 1.2s infinite;
+    }
+
+    /* EFECTO VISUAL DE TEXTURA Y COLOR POR CATEGORÍA */
+    /* 1. Textura de Lunares / Puntos */
+    .tarjeta-animales {
+      background-color: var(--color-animales);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.3) 20%, transparent 20%);
+      background-size: 20px 20px;
+      color: #ffffff;
+    }
+
+    /* 2. Textura de Rayas Diagonales */
+    .tarjeta-naturaleza {
+      background-color: var(--color-naturaleza);
+      background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 15px, transparent 15px, transparent 30px);
+      color: #0f172a;
+    }
+
+    /* 3. Textura Cuadrilátero / Tablero */
+    .tarjeta-emociones {
+      background-color: var(--color-emociones);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px), linear-gradient(90deg, rgba(0, 0, 0, 0.1) 2px, transparent 2px);
+      background-size: 20px 20px;
+      color: #0f172a;
+    }
+
+    /* 4. Textura Gradiente Ondulado */
+    .tarjeta-musica {
+      background-color: var(--color-musica);
+      background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25) 0%, transparent 60%);
+      color: #ffffff;
+    }
+
+    /* ELEMENTOS INTERNOS */
+    .emoji-gigante {
+      font-size: 4.5rem;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .etiqueta-texto {
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* ANIMACIÓN LATIDO (KEYFRAMES) */
+    @keyframes latido {
+      0% { transform: scale(1.05); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1.05); }
+    }
+
+    /* CLASE ANIMACIÓN CLICK (ESTÍMULO REFORZADOR) */
+    .activado {
+      animation: rebotar 0.4s ease !important;
+    }
+
+    @keyframes rebotar {
+      0% { transform: scale(0.9); }
+      50% { transform: scale(1.25) rotate(5deg); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✨ Cuaderno Sensorial Digital ✨</h1>
+    <p class="subtitulo">Toca, mira la textura y escucha el sonido</p>
+  </header>
+
+  <main>
+    <div class="grid-sensorial" role="region" aria-label="Tablero de exploración sensorial">
+
+      <!-- Tarjeta 1: Perro -->
+      <button class="tarjeta-sensorial tarjeta-animales" onclick="reproducirEfecto('Guau guau, Perro', this)">
+        <span class="emoji-gigante" role="img" aria-label="Perro">🐶</span>
+        <span class="etiqueta-texto">Perro</span>
+      </button>
+
+      <!-- Tarjeta 2: Lluvia -->
+      <button class="tarjeta-sensorial tarjeta-naturaleza" onclick="reproducirEfecto('Sonido de lluvia cayendo', this)">
+        <span class="emoji-gigante" role="img" aria-label="Nube con lluvia">🌧️</span>
+        <span class="etiqueta-texto">Lluvia</span>
+      </button>
+
+      <!-- Tarjeta 3: Alegría -->
+      <button class="tarjeta-sensorial tarjeta-emociones" onclick="reproducirEfecto('Me siento muy feliz', this)">
+        <span class="emoji-gigante" role="img" aria-label="Cara muy feliz">😄</span>
+        <span class="etiqueta-texto">Risa</span>
+      </button>
+
+      <!-- Tarjeta 4: Campana -->
+      <button class="tarjeta-sensorial tarjeta-musica" onclick="reproducirEfecto('Ding dong, Campana', this)">
+        <span class="emoji-gigante" role="img" aria-label="Campana">🔔</span>
+        <span class="etiqueta-texto">Campana</span>
+      </button>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Recurso de estimulación multisensorial adaptado con apoyos auditivos y texturas en CSS.</p>
+  </footer>
+
+  <!-- LÓGICA DE AUDIOCONTROL (SÍNTESIS DE VOZ Y FEEDBACK) -->
+  <script>
+    function reproducirEfecto(texto, elemento) {
+      // 1. Animación visual de rebote/impacto
+      elemento.classList.add('activado');
+      setTimeout(() => elemento.classList.remove('activado'), 400);
+
+      // 2. Reproducción del sonido (SpeechSynthesis API nativa del navegador)
+      if ('speechSynthesis' in window) {
+        // Cancela cualquier audio previo para no superponer
+        window.speechSynthesis.cancel();
+
+        const mensaje = new SpeechSynthesisUtterance(texto);
+        mensaje.lang = 'es-ES';
+        mensaje.rate = 0.9;  /* Velocidad ligeramente pausada para accesibilidad */
+        mensaje.pitch = 1.1; /* Tono alegre/motivador */
+
+        window.speechSynthesis.speak(mensaje);
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Línea de Tiempo - Pasos para Lavarnos las Manos</title>
+  <style>
+    /* ==========================================
+       VARIABLES DE COLOR Y PALETA ACCESIBLE
+       ========================================== */
+    :root {
+      --bg-principal: #f0f9ff;     /* Azul agua muy suave */
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      
+      --linea-tiempo: #38bdf8;     /* Celeste brillante */
+      --color-paso-1: #3b82f6;     /* Azul */
+      --color-paso-2: #8b5cf6;     /* Violeta */
+      --color-paso-3: #ec4899;     /* Rosa */
+      --color-paso-4: #10b981;     /* Verde menta */
+      
+      --color-completado: #22c55e; /* Verde de éxito */
+      --focus-ring: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Verdana', 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-principal);
+      color: var(--text-main);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ENCABEZADO Y TÍTULO DE LA RUTINA */
+    header {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--color-paso-1), var(--color-paso-2));
+      color: white;
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* CONTENEDOR CONTENEDOR DE LÍNEA DE TIEMPO */
+    main {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .linea-tiempo-container {
+      position: relative;
+      padding-left: 30px; /* Espacio para la línea vertical */
+    }
+
+    /* La línea vertical central que conecta los pasos */
+    .linea-tiempo-container::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 20px;
+      bottom: 20px;
+      width: 6px;
+      background-color: var(--linea-tiempo);
+      border-radius: 3px;
+    }
+
+    /* TARJETA DE CADA PASO */
+    .paso-card {
+      position: relative;
+      background-color: var(--card-bg);
+      border: 4px solid var(--linea-tiempo);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    /* NÚMERO / INDICADOR EN LA LÍNEA */
+    .paso-card::before {
+      content: attr(data-paso);
+      position: absolute;
+      left: -48px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--linea-tiempo);
+      color: white;
+      font-weight: bold;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      border: 3px solid white;
+    }
+
+    /* DIFERENCIACIÓN DE BORDES POR PASO */
+    .paso-1 { border-color: var(--color-paso-1); }
+    .paso-1::before { background-color: var(--color-paso-1); }
+
+    .paso-2 { border-color: var(--color-paso-2); }
+    .paso-2::before { background-color: var(--color-paso-2); }
+
+    .paso-3 { border-color: var(--color-paso-3); }
+    .paso-3::before { background-color: var(--color-paso-3); }
+
+    .paso-4 { border-color: var(--color-paso-4); }
+    .paso-4::before { background-color: var(--color-paso-4); }
+
+    /* CONTENIDO DEL PASO */
+    .emoji-paso {
+      font-size: 3.5rem;
+      flex-shrink: 0;
+    }
+
+    .info-paso {
+      flex-grow: 1;
+    }
+
+    .info-paso h2 {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+      color: var(--text-main);
+    }
+
+    .info-paso p {
+      font-size: 1.05rem;
+      color: #475569;
+    }
+
+    /* BOTÓN CHECK DE VERIFICACIÓN (ACCESIBLE Y VISUAL) */
+    .btn-check {
+      background-color: #e2e8f0;
+      border: 3px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-check:hover,
+    .btn-check:focus {
+      outline: 3px solid var(--focus-ring);
+      transform: scale(1.05);
+    }
+
+    /* ESTADO COMPLETADO (REDUCCIÓN DE OPACIDAD Y CAMBIO DE COLOR) */
+    .paso-card.completado {
+      background-color: #f0fdf4;
+      border-color: var(--color-completado);
+      opacity: 0.85;
+    }
+
+    .paso-card.completado::before {
+      background-color: var(--color-completado);
+      content: '✓';
+    }
+
+    .paso-card.completado .info-paso h2,
+    .paso-card.completado .info-paso p {
+      text-decoration: line-through;
+      color: #166534;
+    }
+
+    .paso-card.completado .btn-check {
+      background-color: var(--color-completado);
+      color: white;
+      border-color: #15803d;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO DE LA HISTORIA SOCIAL / RUTINA -->
+  <header>
+    <h1>🧼 Pasos para Lavarnos las Manos 🧼</h1>
+    <p>Marca cada paso a medida que lo vas completando</p>
+  </header>
+
+  <main>
+    <div class="linea-tiempo-container" role="region" aria-label="Secuencia paso a paso">
+
+      <!-- Paso 1 -->
+      <article class="paso-card paso-1" data-paso="1">
+        <span class="emoji-paso" role="img" aria-label="Abrir la canilla">🚰</span>
+        <div class="info-paso">
+          <h2>1. Abrir la canilla</h2>
+          <p>Mojamos las manos con agua limpia.</p>
+        </div>
+        <button class="btn-check" onclick="completarPaso(this)">
+          <span>Listo</span> 🟩
+        </button>
+      </article>
+
+      <!-- Paso 2 -->
+      <article class="paso-card paso-2" data-paso="2">
+        <span class="emoji-paso" role="img" aria-label="Usar jabón">🧼</span>
+        <div class="info-paso">
+          <h2>2. Ponerse jabón</h2>
+          <p>Frotamos las palmas con bastante espuma.</p>
+        </div>
+        <button class="btn-check" onclick="completarPaso(this)">
+          <span>Listo</span> 🟩
+        </button>
+      </article>
+
+      <!-- Paso 3 -->
+      <article class="paso-card paso-3" data-paso="3">
+        <span class="emoji-paso" role="img" aria-label="Enjuagar con agua">💦</span>
+        <div class="info-paso">
+          <h2>3. Enjuagar bien</h2>
+          <p>Quitamos todo el jabón con agua abundante.</p>
+        </div>
+        <button class="btn-check" onclick="completarPaso(this)">
+          <span>Listo</span> 🟩
+        </button>
+      </article>
+
+      <!-- Paso 4 -->
+      <article class="paso-card paso-4" data-paso="4">
+        <span class="emoji-paso" role="img" aria-label="Secar las manos">🧻</span>
+        <div class="info-paso">
+          <h2>4. Secar con toalla</h2>
+          <p>Dejamos las manos completamente secas.</p>
+        </div>
+        <button class="btn-check" onclick="completarPaso(this)">
+          <span>Listo</span> 🟩
+        </button>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Recurso de secuenciación de rutinas en Lectura Fácil con retroalimentación de progreso visual.</p>
+  </footer>
+
+  <!-- LÓGICA DE MARCADO Y REFUERZO POSITIVO -->
+  <script>
+    function completarPaso(boton) {
+      const tarjeta = boton.closest('.paso-card');
+      const textoBoton = boton.querySelector('span');
+
+      tarjeta.classList.toggle('completado');
+
+      if (tarjeta.classList.contains('completado')) {
+        textoBoton.textContent = "¡Hecho!";
+        
+        // Audio/Sintesis de voz motivadora
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const tituloPaso = tarjeta.querySelector('h2').textContent;
+          const mensaje = new SpeechSynthesisUtterance("¡Muy bien! Completaste: " + tituloPaso);
+          mensaje.lang = 'es-ES';
+          mensaje.rate = 0.9;
+          window.speechSynthesis.speak(mensaje);
+        }
+      } else {
+        textoBoton.textContent = "Listo";
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Lectura Fácil - Cuentos Adaptados</title>
+  <style>
+    /* ==========================================
+       ESTILOS DUA Y LECTURA FÁCIL
+       ========================================== */
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --primary: #2563eb;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --border-color: #cbd5e1;
+      --focus-ring: #000000;
+    }
+
+    body.high-contrast {
+      --bg-color: #000000;
+      --card-bg: #121212;
+      --text-color: #ffffff;
+      --primary: #ffff00;
+      --secondary: #00ffff;
+      --border-color: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.8;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* BARRA SUPERIOR Y NAVEGACIÓN */
+    .nav-bar {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      color: var(--text-color);
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav:hover, .btn-nav:focus {
+      outline: 3px solid var(--focus-ring);
+      background: var(--primary);
+      color: white;
+    }
+
+    body.high-contrast .btn-nav:hover {
+      color: #000000;
+    }
+
+    /* CABECERA PRINCIPAL */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 25px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 25px;
+    }
+
+    body.high-contrast header {
+      background: #000000;
+      border: 3px solid #ffff00;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    /* CATEGORÍAS (ANIMALES, AVENTURAS, NATURALEZA) */
+    .categories-container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .btn-category {
+      background: var(--card-bg);
+      border: 3px solid var(--border-color);
+      color: var(--text-color);
+      padding: 12px 24px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-category.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    body.high-contrast .btn-category.active {
+      color: #000000;
+    }
+
+    /* CONTENEDOR DEL CUENTO */
+    .story-card {
+      background: var(--card-bg);
+      border: 4px solid var(--border-color);
+      border-radius: 24px;
+      padding: 30px;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--border-color);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .story-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    body.high-contrast .story-title {
+      color: #ffff00;
+    }
+
+    .btn-read-all {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-read-all:hover, .btn-read-all:focus {
+      outline: 3px solid var(--focus-ring);
+      opacity: 0.9;
+    }
+
+    /* PÁRRAFOS DE LECTURA FÁCIL CON VOZ INDIVIDUAL */
+    .story-paragraph {
+      background: var(--bg-color);
+      border-left: 6px solid var(--primary);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      font-size: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .story-paragraph:hover {
+      background: #e2e8f0;
+    }
+
+    body.high-contrast .story-paragraph:hover {
+      background: #262626;
+    }
+
+    .btn-speak-icon {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE NAVEGACIÓN -->
+  <div class="nav-bar">
+    <a href="index.html" class="btn-nav">⬅️ Volver al Portal Principal</a>
+    <button class="btn-nav" onclick="toggleContrast()">👁️ Modo Alto Contraste</button>
+  </div>
+
+  <!-- CABECERA DE LECTURA FÁCIL -->
+  <header>
+    <h1>📖 Cuentos en Lectura Fácil</h1>
+    <p>Elige una categoría y haz clic en los párrafos o en el botón de altavoz para escucharlos.</p>
+  </header>
+
+  <!-- SELECTOR DE CATEGORÍAS -->
+  <div class="categories-container">
+    <button class="btn-category active" onclick="loadCategory('animales')">🐶 Animales</button>
+    <button class="btn-category" onclick="loadCategory('aventuras')">🚀 Aventuras</button>
+    <button class="btn-category" onclick="loadCategory('naturaleza')">🌳 Naturaleza</button>
+  </div>
+
+  <!-- TARJETA DEL CUENTO ACTIVO -->
+  <main class="story-card" id="storyCard">
+    <!-- El contenido se genera dinámicamente con JS -->
+  </main>
+
+  <footer>
+    <p>Lectura Fácil • Inclusión Digital y Apoyos DUA</p>
+  </footer>
+
+  <script>
+    /* BANCO DE CUENTOS ADAPTADOS */
+    const stories = {
+      animales: {
+        title: "🐶 El Perro Simón y su Pelota",
+        paragraphs: [
+          "Simón es un perro muy alegre de color marrón.",
+          "A Simón le gusta mucho jugar en el parque todos los días.",
+          "Su juguete preferido es una pelota roja que pica muy alto.",
+          "Cuando encuentra su pelota, mueve la cola con mucha felicidad."
+        ]
+      },
+      aventuras: {
+        title: "🚀 El Viaje al Espacio de Sofía",
+        paragraphs: [
+          "Sofía sueña con ser astronauta y viajar a las estrellas.",
+          "Un día, sube a su cohete espacial de cartón brillante.",
+          "Cuenta muy fuerte: tres, dos, uno... ¡despegue!",
+          "Sofía explora nuevos planetas llenos de luces y colores."
+        ]
+      },
+      naturaleza: {
+        title: "🌳 El Gran Árbol del Bosque",
+        paragraphs: [
+          "En el centro del bosque vive un árbol muy alto y antiguo.",
+          "En sus ramas verdes viven muchos pájaros cantores.",
+          "Cuando llega la primavera, al árbol le crecen flores hermosas.",
+          "El árbol cuida a todos los animales regalándoles su fresca sombra."
+        ]
+      }
+    };
+
+    let currentCategory = 'animales';
+
+    // Cargar cuento según la categoría
+    function loadCategory(categoryKey) {
+      currentCategory = categoryKey;
+      stopSpeech();
+
+      // Actualizar botones activos
+      document.querySelectorAll('.btn-category').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const data = stories[categoryKey];
+      const card = document.getElementById('storyCard');
+
+      // Generar HTML del cuento
+      let paragraphsHTML = '';
+      data.paragraphs.forEach((text, index) => {
+        paragraphsHTML += `
+          <div class="story-paragraph" onclick="speakText('${text.replace(/'/g, "\\'")}')" tabIndex="0" aria-label="Escuchar párrafo">
+            <span>${text}</span>
+            <button class="btn-speak-icon" title="Escuchar este párrafo">🔊</button>
+          </div>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="story-header">
+          <h2 class="story-title">${data.title}</h2>
+          <button class="btn-read-all" onclick="readFullStory()">🔊 Leer Cuento Completo</button>
+        </div>
+        <div>
+          ${paragraphsHTML}
+        </div>
+      `;
+    }
+
+    /* SÍNTESIS DE VOZ (TEXT-TO-SPEECH) */
+    function speakText(text) {
+      stopSpeech(); // Detener lecturas anteriores
+
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.9; // Velocidad pausada para facilitación cognitiva
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert("Tu navegador no soporta la lectura por voz.");
+      }
+    }
+
+    function readFullStory() {
+      const data = stories[currentCategory];
+      const fullText = data.title + ". " + data.paragraphs.join(" ");
+      speakText(fullText);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function toggleContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    // Inicializar con el cuento de Animales
+    window.onload = function() {
+      loadCategory('animales');
+    };
+  </script>
+</body>
+</html>

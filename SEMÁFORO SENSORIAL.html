@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semáforo de Autorregulación Emocional</title>
+  <style>
+    /* ==========================================
+       VARIABLES Y PALETA DE COLORES (MODO NORMAL)
+       ========================================== */
+    :root {
+      --bg-principal: #f0fdf4;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      
+      --verde-verde: #22c55e;
+      --verde-bg: #dcfce7;
+      
+      --amarillo-amarillo: #eab308;
+      --amarillo-bg: #fef9c3;
+      
+      --rojo-rojo: #ef4444;
+      --rojo-bg: #fee2e2;
+      
+      --focus-ring: #000000;
+      --transicion: all 0.3s ease;
+    }
+
+    /* MODO CALMA / BAJO ESTÍMULO (REDUCCIÓN SENSORIAL) */
+    body.modo-calma {
+      --bg-principal: #e2e8f0;
+      --card-bg: #f1f5f9;
+      --text-main: #334155;
+      
+      --verde-verde: #64748b;
+      --verde-bg: #e2e8f0;
+      
+      --amarillo-amarillo: #64748b;
+      --amarillo-bg: #e2e8f0;
+      
+      --rojo-rojo: #64748b;
+      --rojo-bg: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Verdana', 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-principal);
+      color: var(--text-main);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      transition: var(--transicion);
+    }
+
+    /* ENCABEZADO Y PANEL DE CONTROL SENSORIAL */
+    header {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    /* BOTÓN MODO CALMA */
+    .btn-modo-calma {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: var(--transicion);
+    }
+
+    .btn-modo-calma:hover,
+    .btn-modo-calma:focus {
+      background-color: #1d4ed8;
+      outline: 3px solid var(--focus-ring);
+    }
+
+    /* ESTRUCTURA DEL SEMÁFORO (CSS GRID) */
+    main {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .grid-semaforo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    /* TARJETAS DE ESTADO EMOCIONAL */
+    .tarjeta-emocion {
+      background-color: var(--card-bg);
+      border-radius: 24px;
+      border: 5px solid;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+      transition: var(--transicion);
+      cursor: pointer;
+    }
+
+    .tarjeta-emocion:hover,
+    .tarjeta-emocion:focus-within {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .tarjeta-emocion:focus-within {
+      outline: 4px solid var(--focus-ring);
+      outline-offset: 4px;
+    }
+
+    /* VARIACIONES DE ESTADO (COLORES Y FONDOS) */
+    .estado-verde {
+      border-color: var(--verde-verde);
+      background-color: var(--verde-bg);
+    }
+
+    .estado-amarillo {
+      border-color: var(--amarillo-amarillo);
+      background-color: var(--amarillo-bg);
+    }
+
+    .estado-rojo {
+      border-color: var(--rojo-rojo);
+      background-color: var(--rojo-bg);
+    }
+
+    /* ELEMENTOS INTERNOS DE LA TARJETA */
+    .emoji-estado {
+      font-size: 4.5rem;
+      margin-bottom: 10px;
+    }
+
+    .titulo-estado {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .estado-verde .titulo-estado { color: #15803d; }
+    .estado-amarillo .titulo-estado { color: #a16207; }
+    .estado-rojo .titulo-estado { color: #b91c1c; }
+
+    body.modo-calma .titulo-estado { color: var(--text-main); }
+
+    /* LISTA DE ESTRATEGIAS (LECTURA FÁCIL) */
+    .lista-estrategias {
+      list-style: none;
+      text-align: left;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .lista-estrategias li {
+      margin-bottom: 8px;
+    }
+
+    .lista-estrategias li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* MENSAJE DE FEEDBACK */
+    .visor-respuesta {
+      margin-top: 30px;
+      background-color: var(--card-bg);
+      border: 3px dashed #94a3b8;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 35px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <h1>🚦 ¿Cómo me siento ahora? 🚦</h1>
+    <button class="btn-modo-calma" onclick="toggleModoCalma()">
+      🌙 Activar / Desactivar Modo Calma (Bajo Estímulo)
+    </button>
+  </header>
+
+  <main>
+    <div class="grid-semaforo">
+
+      <!-- Estado Verde: Calma -->
+      <article class="tarjeta-emocion estado-verde" onclick="seleccionarEstado('Verde: ¡Estoy tranquilo y listo para aprender!')" tabindex="0">
+        <span class="emoji-estado" role="img" aria-label="Carita feliz y tranquila">😊</span>
+        <h2 class="titulo-estado">VERDE</h2>
+        <ul class="lista-estrategias">
+          <li>• Estoy tranquilo.</li>
+          <li>• Puedo escuchar.</li>
+          <li>• Listo para jugar y aprender.</li>
+        </ul>
+      </article>
+
+      <!-- Estado Amarillo: Precaución / Inquietud -->
+      <article class="tarjeta-emocion estado-amarillo" onclick="seleccionarEstado('Amarillo: Necesito hacer una pausa y respirar.')" tabindex="0">
+        <span class="emoji-estado" role="img" aria-label="Carita pensativa o inquieta">😐</span>
+        <h2 class="titulo-estado">AMARILLO</h2>
+        <ul class="lista-estrategias">
+          <li>• Me siento inquieto.</li>
+          <li>• Hago 3 respiraciones profundas.</li>
+          <li>• Tomo un poco de agua.</li>
+        </ul>
+      </article>
+
+      <!-- Estado Rojo: Alto / Miedo / Enojo -->
+      <article class="tarjeta-emocion estado-rojo" onclick="seleccionarEstado('Rojo: Pido ayuda y voy a un espacio tranquilo.')" tabindex="0">
+        <span class="emoji-estado" role="img" aria-label="Carita muy abrumada o enojada">🤯</span>
+        <h2 class="titulo-estado">ROJO</h2>
+        <ul class="lista-estrategias">
+          <li>• Estoy molesto o abrumado.</li>
+          <li>• Hago una pausa.</li>
+          <li>• Le pido ayuda al docente.</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <!-- MENSAJE DE CONFIRMACIÓN -->
+    <div class="visor-respuesta" id="mensaje-feedback" aria-live="polite">
+      Toca una tarjeta para elegir tu estado de hoy.
+    </div>
+  </main>
+
+  <footer>
+    <p>Herramienta digital de autorregulación basada en pautas de apoyo visual y diseño inclusivo.</p>
+  </footer>
+
+  <!-- LÓGICA DE INTERACCIÓN -->
+  <script>
+    function seleccionarEstado(texto) {
+      const feedback = document.getElementById('mensaje-feedback');
+      feedback.textContent = texto;
+
+      // Reproducción de voz opcional si la API está disponible
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const mensaje = new SpeechSynthesisUtterance(texto);
+        mensaje.lang = 'es-ES';
+        mensaje.rate = 0.9;
+        window.speechSynthesis.speak(mensaje);
+      }
+    }
+
+    function toggleModoCalma() {
+      document.body.classList.toggle('modo-calma');
+    }
+  </script>
+
+</body>
+</html>

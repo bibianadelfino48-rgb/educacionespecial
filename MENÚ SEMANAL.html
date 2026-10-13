@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú Interactivo - Causa y Efecto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .contenedor-menu {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 22px;
+    }
+
+    .instruccion {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .opcion-menu {
+      background: #eef2f5;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 5px solid #3498db;
+    }
+
+    .opcion-menu:hover {
+      background: #e3e9ed;
+      transform: translateX(5px);
+    }
+
+    .titulo-plato {
+      font-weight: bold;
+      color: #2c3e50;
+      display: block;
+    }
+
+    /* Caja de Efecto (Oculta por defecto) */
+    .efecto-caja {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 6px;
+      color: #856404;
+      font-size: 14px;
+    }
+
+    /* Clase activa para mostrar el efecto */
+    .opcion-menu.activa .efecto-caja {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="contenedor-menu">
+  <h1>Menú Semanal del Comedor</h1>
+  <p class="instruccion">Haz clic o pasa el cursor sobre una opción para ver su impacto (Causa &#8594; Efecto)</p>
+
+  <!-- Opción 1 -->
+  <div class="opcion-menu" onclick="toggleEfecto(this)">
+    <span class="titulo-plato">🥗 Causa: Seleccionar Menú Saludable (Ensalada + Pescado + Fruta)</span>
+    <div class="efecto-caja">
+      <strong>✨ Efecto:</strong> Aporta energía constante durante la tarde, mejora la digestión y fortalece la concentración en clase.
+    </div>
+  </div>
+
+  <!-- Opción 2 -->
+  <div class="opcion-menu" onclick="toggleEfecto(this)">
+    <span class="titulo-plato">🍕 Causa: Seleccionar Menú Ultraprocesado (Pizza + Gaseosa + Postre Frito)</span>
+    <div class="efecto-caja">
+      <strong>⚡ Efecto:</strong> Produce un pico rápido de energía seguido de pesadez, picazón de sed y sueño durante las últimas horas de clase.
+    </div>
+  </div>
+
+  <!-- Opción 3 -->
+  <div class="opcion-menu" onclick="toggleEfecto(this)">
+    <span class="titulo-plato">🍎 Causa: Consumir la fruta entera en lugar del jugo envasado</span>
+    <div class="efecto-caja">
+      <strong>🌱 Efecto:</strong> Aprovechas toda la fibra natural, regulas el azúcar en sangre y reduces el uso de envases plásticos.
+    </div>
+  </div>
+
+  <!-- Opción 4 -->
+  <div class="opcion-menu" onclick="toggleEfecto(this)">
+    <span class="titulo-plato">🗑️ Causa: Servirte solo la porción que vas a comer</span>
+    <div class="efecto-caja">
+      <strong>🌍 Efecto:</strong> Reduces a cero el desperdicio de comida en tu mesa y colaboras con la sostenibilidad del comedor.
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleEfecto(elemento) {
+    // Cierra las demás opciones si se quiere comportamiento tipo acordeón
+    const todasLasOpciones = document.querySelectorAll('.opcion-menu');
+    todasLasOpciones.forEach(opcion => {
+      if (opcion !== elemento) {
+        opcion.classList.remove('activa');
+      }
+    });
+
+    // Alterna la opción seleccionada
+    elemento.classList.toggle('activa');
+  }
+</script>
+
+</body>
+</html>
